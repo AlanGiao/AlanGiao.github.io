@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Archlinux 安装以及后续配置 | Life of Jia</title><meta name="author" content="Jia"><meta name="copyright" content="Jia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#428675"><meta name="description" content="这里记录安装 archlinux 的进程。 首先，建议看一下 archlinux 安装指南。以下仅是一些注意事项。 我的笔记本电脑是UEFI启动模式的。 连接无线网络 在Live 系统中连接网络 在进入安装介质后，live 系统会提供 iwctl 这个命令来允许你联网。步骤为：  iwctl # 进入 iw 这个工具的环境中 station list # 查看你的无线网络接口 station DE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Archlinux 安装以及后续配置">
+<meta property="og:url" content="http://example.com/2023/06/18/archlinux-installation/index.html">
+<meta property="og:site_name" content="Life of Jia">
+<meta property="og:description" content="这里记录安装 archlinux 的进程。 首先，建议看一下 archlinux 安装指南。以下仅是一些注意事项。 我的笔记本电脑是UEFI启动模式的。 连接无线网络 在Live 系统中连接网络 在进入安装介质后，live 系统会提供 iwctl 这个命令来允许你联网。步骤为：  iwctl # 进入 iw 这个工具的环境中 station list # 查看你的无线网络接口 station DE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/transparent">
+<meta property="article:published_time" content="2023-06-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-18T03:00:39.836Z">
+<meta property="article:author" content="Jia">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/transparent"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/06/18/archlinux-installation/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Archlinux 安装以及后续配置',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-18 11:00:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#428675')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="./themes/butterfly/source/css/custom/envelope.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Life of Jia</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Archlinux 安装以及后续配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-17T16:00:00.000Z" title="发表于 2023-06-18 00:00:00">2023-06-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-18T03:00:39.836Z" title="更新于 2023-06-18 11:00:39">2023-06-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/GNU-Linux/">GNU/Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Archlinux 安装以及后续配置"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>这里记录安装 archlinux 的进程。</p>
+<p>首先，建议看一下 <a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97">archlinux 安装指南</a>。以下仅是一些注意事项。 我的笔记本电脑是UEFI启动模式的。</p>
+<h1>连接无线网络</h1>
+<h2 id="在Live-系统中连接网络">在Live 系统中连接网络</h2>
+<p>在进入安装介质后，live 系统会提供 iwctl 这个命令来允许你联网。步骤为：</p>
+<ol>
+<li>iwctl # 进入 iw 这个工具的环境中</li>
+<li>station list # 查看你的无线网络接口</li>
+<li>station DEVICE scan # DEVICE 就是你之前看到的接口，如 wlan0, wlp2s0, …</li>
+<li>station DEVICE get-networks # 列出可用网络</li>
+<li>station DEVICE connect SSID # SSID就是网络的名字</li>
+</ol>
+<p>然后就可以成功联网。</p>
+<p>但是，<code>iwctl</code> 不会随着你的安装进入安装后的系统。因此要在运行 <code>pacstrap -K /mnt base linux linux-firmware</code> 时，在后面加入下列东西：</p>
+<ol>
+<li>iw</li>
+<li>iwd</li>
+<li>wpa_supplicant （提供 WiFi 密码认证服务）</li>
+<li>netctl （另一个Network Manager, 但是安装后默认不会启动，但是它有自动连接WiFi的功能，可自行查阅 man page. 此外，在 GNOME 桌面环境下如果你要使用图形化的无线网络管理功能，那就必须要有一个 Network Manager.</li>
+<li>dialog (被 wifi-menu 依赖。但是 wifi-menu 似乎已经不被推荐了，而被 Intel 的 iwctl 命令替代。)</li>
+</ol>
+<p>这样，你才能在安装完成进入新系统时有联网的能力。</p>
+<h2 id="安装成功后配置无线网络">安装成功后配置无线网络</h2>
+<p>此小节的动作在安装成功后再操作。</p>
+<p>Live 系统的所有配置不会进入新安装的系统。所以需要重新配置各文件。</p>
+<h3 id="配置-iwd">配置 iwd</h3>
+<p>我使用的 WLAN 是学校提供的，因此需要 DHCP（动态IP分配） 功能。这个功能可由 iwd 提供。但需要配置:</p>
+<ol>
+<li>vim /etc/iwd/main.conf</li>
+<li>添加如下内容并保存退出：<br>
+[General]<br>
+EnableNetworkConfiguration=true</li>
+</ol>
+<h3 id="使能-enable-并启动相关守护进程-daemons">使能(enable)并启动相关守护进程(daemons)</h3>
+<p>Wi-Fi 功能总需要一个程序来维护，所以我们需要启动它。这里我们要启用</p>
+<ol>
+<li><code>systemd-resolved</code> （负责DNS）</li>
+<li><code>iwd </code></li>
+</ol>
+<p>执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable systemd-resolved</span><br><span class="line">systemctl enable iwd</span><br><span class="line">systemctl start systemd-resolved</span><br><span class="line">systemctl start iwd</span><br></pre></td></tr></table></figure>
+<p>然后，就可以运行 iwctl 命令并联网。</p>
+<h1>蓝牙</h1>
+<ul>
+<li>安装 bluez 包，其提供基本的蓝牙协议栈。</li>
+<li>安装 bluez-utils，其提供 bluetoothctl 功能。</li>
+<li>检查核心模组 btusb 是否加载。使用 modinfo | grep -i btusb 检查。为加载模组，使用 modprobe module_name.</li>
+<li>开启、使能 bluetooth.service.</li>
+</ul>
+<p>命令行具体使用方法查看文档。安装完成后，GNOME的蓝牙管理器应该就可以正常运行了。</p>
+<p>使用蓝牙前，使用 rfkill 以确认没有被 block. rfkill功能介绍：tool for enabling and disabling wireless devices.</p>
+<h1>更新系统时间</h1>
+<h1>使用 gdisk 分区</h1>
+<p>Linux Swap 的编码是 8200. 分区范式参考：<a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97%E3%80%82">https://wiki.archlinuxcn.org/wiki/安装指南。</a></p>
+<blockquote>
+<p>注意：如果已经有一个系统在某硬盘上，就不需要创建新的 EFI System Partition.</p>
+</blockquote>
+<h1>格式化分区</h1>
+<h1>挂载文件系统</h1>
+<p>注意：先挂载root分区，再挂载EFI系统分区（一般是 /dev/sda1）；且EFI 系统分区必须挂载到 /mnt/boot.</p>
+<h1>安装必要软件</h1>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap -K /mnt base linux linux-firmwre iw iwd dialog netctl wpa_supplicnat vim</span><br></pre></td></tr></table></figure>
+<h1>生成fstab, chroot, timezone, locale, hostname, root password</h1>
+<p><a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97#Fstab">https://wiki.archlinuxcn.org/wiki/安装指南#Fstab</a></p>
+<p>语系的设定档为 /etc/locale.conf. 显示系统语系：localectl. 显示当前软件语系：locale. 为设置语系，使用 localectl set-locale LANG=en_US.UTF-8.</p>
+<h1>安装 grub</h1>
+<ol>
+<li>确认已经将 EFI 系统分区挂载到 /boot</li>
+<li>自己选一个名字给grub，比如 Arch-Linux. 然后进入 EFI 系统分区的挂载点，再进入其 EFI 子目录。新建一个名为 Arch-Linux 的空目录。</li>
+<li>安装 <code>grub, efibootmgr</code> 这两个包。注意，因为已经 chroot，所以需要用 <code>pacman -S pgk_name</code> 来安装。</li>
+<li>运行 <code>grub-install --target=x86_64-efi --efi-derectory=/boot --bootloader-id=Arch-Linux</code></li>
+<li><code>grub-mkconfig -o /boot/grub/grub.cfg</code></li>
+</ol>
+<h2 id="探测其他操作系统">探测其他操作系统</h2>
+<p>注意：这一步需要在你重启系统成功登入以后再进行。</p>
+<ol>
+<li>安装 os-prober 并挂载其他系统的启动分区。</li>
+<li>编辑 /etc/default/grub 设置 GRUB_DISABLE_OS_PROBER=false</li>
+<li>运行 grub-mkconfig -o /boot/grub/grub.cfg</li>
+</ol>
+<p>这样，下次你启动时，grub 的菜单中就有你其他的系统了。</p>
+<p>注意：探测其他的操作系统有一定安全风险，所以 archlinux 默认是disable这个功能的。所以在我们成功探测之后，就把设定档改回来吧！</p>
+<h2 id="删除系统">删除系统</h2>
+<p>如果你不想要这个系统了怎么办？好办。进入Windows，以管理员身份运行 cmd, 然后运行 diskpart. 选中操作系统所在的 disk, 然后选中不想要的分区，删除就好。</p>
+<p>然后，选中 EFI 系统分区，assign letter p, 然后用 cmd 进入磁盘 p. 进入 名为 EFI 的目录，删除 Arch-Linux 就好。</p>
+<h1>配置镜像</h1>
+<p>配置阿里云镜像。因为默认的镜像不好用，所以需要配置。镜像列表存在 <code>/etc/pacman.d/mirrorlist</code> . 在最顶部加入 <code>https://mirrors.aliyun.com/archlinux</code> 即可。</p>
+<p>关于其他镜像源头，见：<a target="_blank" rel="noopener" href="https://archlinux.org/packages/?name=pacman-mirrorlist">pacman-mirrorlist.</a>.</p>
+<h1>安装 gnome</h1>
+<p><code>pacman -S gnome</code>. 里面的软件可以全部安装。然后启动并 enable <code>gdm.service</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable gdm.service</span><br><span class="line">systemctl start gdm.service</span><br></pre></td></tr></table></figure>
+<h1>建立普通用户</h1>
+<p>新系统默认只有 root，但是长期用root登入比较危险，所以需要建置新的普通用户。我建立的是一个管理员用户。</p>
+<p>如果是自己用，最好给 <code>/home</code> 单独挂载一个 partition.</p>
+<ul>
+<li>用 gdisk 新建一个分区并执行 <code>partprobe /dev/sda</code> 来刷新分区表。</li>
+<li><code>lsblk -f</code> 查看新分区的 UUID，复制下来。</li>
+<li><code>vim /etc/fstab</code> 将新建立的分区添加到最后。注意：<code>/etc/fstab</code> 中各个文件系统的顺序是有讲究的，必须把 <code>/root</code> 分区放在最前面。并且，除了 <code>/root</code> 分区外，其他分区的最后一列都填 <code>2</code>. <strong>注意</strong>: 在修改 /etc/fstab 后，需要 mount -a 测试一下有没有问题。如果 fstab 有问题并且你重启，那么开机将会出现两个结果之一：失败，或耗费极长的时间（30min 以上）。<br>
+用 gdisk 新建分区后，还需要执行 <code>partprobe</code> 命令以告知操作系统分区表的变化</li>
+<li>systemctl daemon-reload 以刷新分区表。</li>
+<li>把刚创建的分区 (/dev/sdaN) 挂载到家目录：<code>mount /dev/sdaN /home</code></li>
+<li>添加用户 usradd -m username</li>
+<li>改密码 passwd username</li>
+<li>安装 sudo 和 vi</li>
+<li>执行 visudo ，修改配置。详细配置选项自行查看 man 手册或者百度。</li>
+<li>（可选）如果想用刚新建的用户做管理员，可以将其加入 wheel 组。usermod -aG USERNAME wheel,adm,rfkill*  登出 root，改用普通账户登录。</li>
+</ul>
+<h1>配置中文环境</h1>
+<h2 id="安装中文字体">安装中文字体</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S noto-fonts-cjk</span><br><span class="line">pacman -S noto-fonts</span><br></pre></td></tr></table></figure>
+<p>字体都存在 <code>/usr/share/fonts</code>. 所以可以下载字体后手动将字体文件复制到此目录以手动安装。</p>
+<h2 id="安装中文输入法。我选择-rime">安装中文输入法。我选择 rime.</h2>
+<p><code>pacman -S ibus-rime</code> 以下载rime。<br>
+<code>ibus engine rime</code> 以启动rime。</p>
+<p>按下F4可以调整输入方式为简体，如选择“明月拼音”。这样就可以使用全拼了。</p>
+<p>如果需要安装新的输入方式（如我用的小鹤立双拼），则需要安装「东风破」（plum）。方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://raw.githubusercontent.com/rime/plum/master/rime-install | bash</span><br></pre></td></tr></table></figure>
+<p>注意：执行这个命令前，确认你已经安装了git。</p>
+<p>下载完成后，进入 ~/plum 目录键入 rime-install pkg_name 即可。pkg_name 是你想安装的包的名字。</p>
+<p>比如我想安装双拼，那就运行：<br>
+<code>b</code>ash rime-install double-pinyin`</p>
+<p>然后，你需要修改rime的配置文件，以使得双拼出现在〔方案选单〕中。</p>
+<ul>
+<li>进入 <code>~/.config/ibus/rime</code></li>
+<li><code>vim default.custom.yaml</code></li>
+<li>输入配置:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># default.custom.yaml</span><br><span class="line">patch:</span><br><span class="line">  schema_list:</span><br><span class="line">    - schema: double_pinyin_flypy</span><br><span class="line">    - schema: luna_pinyin_simp</span><br><span class="line">    - schema: luna_pinyin</span><br><span class="line">    - schema: emoji</span><br></pre></td></tr></table></figure>
+<ul>
+<li>部署rime，结束。</li>
+</ul>
+<blockquote>
+<p>一个问题：少数几个字，如一、体，会显示得不一样。他俩的共同点是：都在未安装中文时可以正常显示。当你把区域和语言设置为中文这个现象就会消失。但是设置成中文时，有的英文字体可能会不太好看。</p>
+</blockquote>
+<h1>其他</h1>
+<h2 id="Wine">Wine</h2>
+<p>Wine (Wine Is Not an Emulator) 是一个模拟器，可以让 exe 文件以为它运行在 Windows 下。注意，Wine 不是 Sandbox，软件可以获得你物理机器的东西。</p>
+<p>下载使用 Wine: Enable multilib: edit /etc/pacman.conf and uncomment the [multilib] section. Then upgrade the system to download all the multilib packages. 当然，你也可以仅仅使用 <code>sudo pacman -Sy wine</code>. 不过这有可能导致依赖出现问题。</p>
+<h2 id="OpenSSH">OpenSSH</h2>
+<p>下载 <code>openssh</code> 包就可以使用了。</p>
+<p>来自 阮一峰 的教程：<a target="_blank" rel="noopener" href="https://wangdoc.com/ssh">https://wangdoc.com/ssh</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/transparent" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/02/20/ed-boundary_conditions/"><img class="next-cover" src="/transparent" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">电磁场边界/衔接条件</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jia</div><div class="author-info__description">A record of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AlanGiao"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">连接无线网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8Live-%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C"><span class="toc-number">1.1.</span> <span class="toc-text">在Live 系统中连接网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F%E5%90%8E%E9%85%8D%E7%BD%AE%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C"><span class="toc-number">1.2.</span> <span class="toc-text">安装成功后配置无线网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-iwd"><span class="toc-number">1.2.1.</span> <span class="toc-text">配置 iwd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E8%83%BD-enable-%E5%B9%B6%E5%90%AF%E5%8A%A8%E7%9B%B8%E5%85%B3%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B-daemons"><span class="toc-number">1.2.2.</span> <span class="toc-text">使能(enable)并启动相关守护进程(daemons)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">蓝牙</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">更新系统时间</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">使用 gdisk 分区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">格式化分区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">挂载文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">安装必要软件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">8.</span> <span class="toc-text">生成fstab, chroot, timezone, locale, hostname, root password</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text">安装 grub</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">9.1.</span> <span class="toc-text">探测其他操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F"><span class="toc-number">9.2.</span> <span class="toc-text">删除系统</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">10.</span> <span class="toc-text">配置镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">11.</span> <span class="toc-text">安装 gnome</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">12.</span> <span class="toc-text">建立普通用户</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">13.</span> <span class="toc-text">配置中文环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93"><span class="toc-number">13.1.</span> <span class="toc-text">安装中文字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E3%80%82%E6%88%91%E9%80%89%E6%8B%A9-rime"><span class="toc-number">13.2.</span> <span class="toc-text">安装中文输入法。我选择 rime.</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">14.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Wine"><span class="toc-number">14.1.</span> <span class="toc-text">Wine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenSSH"><span class="toc-number">14.2.</span> <span class="toc-text">OpenSSH</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/18/archlinux-installation/" title="Archlinux 安装以及后续配置">Archlinux 安装以及后续配置</a><time datetime="2023-06-17T16:00:00.000Z" title="发表于 2023-06-18 00:00:00">2023-06-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/20/ed-boundary_conditions/" title="电磁场边界/衔接条件">电磁场边界/衔接条件</a><time datetime="2023-02-19T16:00:00.000Z" title="发表于 2023-02-20 00:00:00">2023-02-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/06/qm-angular_momentumn/" title="量子力学-角动量">量子力学-角动量</a><time datetime="2023-02-05T16:00:00.000Z" title="发表于 2023-02-06 00:00:00">2023-02-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/06/qm-applications/" title="量子力学-应用例">量子力学-应用例</a><time datetime="2023-02-05T16:00:00.000Z" title="发表于 2023-02-06 00:00:00">2023-02-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/06/qm-identical_particle/" title="量子力学-全同粒子体系与多粒子体系">量子力学-全同粒子体系与多粒子体系</a><time datetime="2023-02-05T16:00:00.000Z" title="发表于 2023-02-06 00:00:00">2023-02-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Jia</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
